@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="App\Books\Infrastructure\BookRepository" name="App\Books\Domain\Book" table="book">
+    <!--<id name="id" column="id" type="uuid"> </id>-->
+        <embedded name="id" class="App\Books\Domain\ValueObject\BookId" use-column-prefix="false"/>
+      <!--<generator strategy="CUSTOM"/>-->
+      <!--<custom-id-generator class="Ramsey\Uuid\Doctrine\UuidGenerator"/>-->
+    
+    <embedded name="title" class="App\Books\Domain\ValueObject\BookTitle" use-column-prefix="false"/>
+
+    <embedded name="image" class="App\Books\Domain\ValueObject\BookImage" use-column-prefix="false"/>
+    <embedded name="description" class="App\Books\Domain\ValueObject\BookDescription" use-column-prefix="false"/>
+    <embedded name="score" class="App\Books\Domain\ValueObject\BookScore" use-column-prefix="false"/>
+
+   <!-- <field name="author_id" column="author_id" type="author_id"/> -->
+
+    <many-to-one field="author" target-entity="App\Authors\Domain\Author" inversed-by="books" fetch="LAZY">
+      <join-columns>
+        <join-column name="author_id" referenced-column-name="id" />
+      </join-columns>
+    </many-to-one>
+
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,34 @@
+#framework:
+#    messenger:
+#        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+#        # failure_transport: failed
+#        transports:
+#            event_book_created:
+#                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+#                options:
+#                    exchange:
+#                        name: event
+#                        type: topic
+#                    queues:
+#                        librarify.book.event_book_created:
+#                            binding_keys: [ 'nil.book.1.event.book.created' ]
+#                retry_strategy:
+#                    max_retries: 0
+#            amqp:
+#                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+#                options:
+#                    exchange:
+#                        name: event
+#                        type: topic
+#                    queues: [ ]
+#        routing:
+#            '*': amqp
+
+
+#framework:
+#    messenger:
+#        transports:
+#             amqp: '%env(MESSENGER_TRANSPORT_DSN)%'
+#
+#        routing:
+#            'App\Books\Domain\BookCreatedDomainEvent': amqp 

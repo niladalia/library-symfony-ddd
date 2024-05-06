@@ -1,0 +1,70 @@
+framework:
+    messenger:
+        default_bus: messenger.command.bus
+        buses:
+            messenger.command.bus:
+                default_middleware: false
+                middleware:
+                    - handle_message
+
+            messenger.query.bus:
+                default_middleware: false
+                middleware:
+                    - handle_message
+
+            messenger.bus.event.async:
+                default_middleware: allow_no_handlers
+
+        transports:
+            librarify_book_created_subscriber:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                serializer: App\Shared\Infrastructure\Event\BookCreatedDomainEventDecoder
+                options:    
+                    exchange:
+                        name: exchange_librarify
+                        type: topic                      
+                    queues:
+                        librarify.book.book_created:
+                            binding_keys: [ 'librarify.book.1.event.book.created' ]
+                retry_strategy:
+                    max_retries: 5
+
+            librarify_book_updated_subscriber:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                serializer: App\Shared\Infrastructure\Event\BookUpdatedDomainEventDecoder
+                options:
+                    exchange:
+                        name: exchange_librarify
+                        type: topic
+                    queues:
+                        librarify.book.book_updated:
+                            binding_keys: [ 'librarify.book.1.event.book.updated' ]
+                retry_strategy:
+                    max_retries: 5
+
+            librarify_book_deleted_subscriber:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                serializer: App\Shared\Infrastructure\Event\BookDeletedDomainEventDecoder
+                options:
+                    exchange:
+                        name: exchange_librarify
+                        type: topic
+                    queues:
+                        librarify.book.book_deleted:
+                            binding_keys: [ 'librarify.book.1.event.book.deleted' ]
+                retry_strategy:
+                    max_retries: 5
+
+            amqp:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                serializer: serializer.amqp
+                options:
+                    exchange:
+                        name: exchange_librarify
+                        type: topic
+                    queues: [ ]
+
+            sync: 'sync://'
+
+        routing:
+            '*': amqp

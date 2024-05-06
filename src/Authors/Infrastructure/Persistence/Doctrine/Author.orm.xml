@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="App\Authors\Infrastructure\Persistence\DoctrineAuthorRepository" name="App\Authors\Domain\Author" table="author">
+   <!-- <id name="id" column="id" type="uuid"></id> -->
+    <embedded name="id" class="App\Authors\Domain\ValueObject\AuthorId" use-column-prefix="false"/>
+
+    <embedded name="name" class="App\Authors\Domain\ValueObject\AuthorName" use-column-prefix="false"/>
+    <one-to-many field="books" target-entity="App\Books\Domain\Book" mapped-by="author" fetch="LAZY"/>
+  </entity>
+</doctrine-mapping>

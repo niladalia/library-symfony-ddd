@@ -1,0 +1,22 @@
+default:
+    suites:
+        default:
+            paths: [ tests/Behat/features ]
+            contexts:
+                - App\Tests\Behat\DemoContext
+        books:
+            paths: [ tests/src/Books/Infrastructure/features ]
+            contexts:
+                - App\Tests\Behat\Books\BookContext
+        author:
+            paths: [ tests/src/Authors/Infrastructure/features ]
+            contexts:
+                - App\Tests\Behat\Authors\AuthorContext
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension: null
+        Behat\MinkExtension:
+          sessions:
+            symfony:
+              symfony: ~
+          base_url: ''

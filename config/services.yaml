@@ -1,0 +1,41 @@
+parameters:
+    app.api_token: '%env(resolve:APP_API_TOKEN)%'
+services:
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $messengerAuditLogger: '@monolog.logger.messenger_audit'
+    App\:
+        resource: '../src/*'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '.. /src/Form/Model'
+    App\Shared\Infrastructure\Symfony\ApiExceptionListener:
+     tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
+    App\Books\Domain\BookFileManagerInterface: '@App\Books\Infrastructure\Uploader\LocalBookFileManager'
+
+    App\Shared\Infrastructure\Symfony\HttpClientInterface: '@App\Shared\Infrastructure\Symfony\HttpClient'
+
+    _instanceof:
+        App\Shared\Domain\Bus\Command\CommandHandler:
+            tags: [ { name: messenger.message_handler, bus: messenger.command.bus } ]
+        App\Shared\Domain\Bus\Query\QueryHandler:
+            tags: [ { name: messenger.message_handler, bus: messenger.query.bus } ]
+
+
+
+    App\Books\Infrastructure\Handlers\BookCreatedDomainEventHandler:
+        tags: [ { name: messenger.message_handler, fromTransport: 'librarify_book_created_subscriber' } ]
+    App\Books\Infrastructure\Handlers\BookDeletedDomainEventHandler:
+        tags: [ { name: messenger.message_handler, fromTransport: 'librarify_book_deleted_subscriber' } ]
+    App\Books\Infrastructure\Handlers\BookUpdatedDomainEventHandler:
+        tags: [ { name: messenger.message_handler, fromTransport: 'librarify_book_updated_subscriber' } ]
+
+    serializer.amqp:
+        class: App\Shared\Infrastructure\Event\DomainEventJsonSerializer
+        autowire: false

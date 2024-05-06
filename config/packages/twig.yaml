@@ -1,0 +1,8 @@
+twig:
+    file_name_pattern: '*.twig'
+    globals:
+        image_dir: 'storage/default/'
+
+when@test:
+    twig:
+        strict_variables: true

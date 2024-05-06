@@ -1,0 +1,130 @@
+{
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.2",
+        "ext-amqp": "*",
+        "ext-ctype": "*",
+        "ext-fileinfo": "*",
+        "ext-iconv": "*",
+        "api-platform/core": "^3.2",
+        "broadway/broadway": "^2.5",
+        "cap-collectif/id-to-uuid": "dev-update-doctrine",
+        "doctrine/annotations": "^2.0",
+        "doctrine/doctrine-bundle": "^2.11",
+        "doctrine/doctrine-migrations-bundle": "^3.3",
+        "doctrine/orm": "^2.17",
+        "fakerphp/faker": "^1.23",
+        "lambdish/phunctional": "^2.1",
+        "league/flysystem-bundle": "^3.3",
+        "nelmio/api-doc-bundle": "^4.25",
+        "nelmio/cors-bundle": "^2.4",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.25",
+        "ramsey/uuid-doctrine": "^2.0",
+        "symfony/amqp-messenger": "7.0.*",
+        "symfony/asset": "7.0.*",
+        "symfony/console": "7.0.*",
+        "symfony/dotenv": "7.0.*",
+        "symfony/event-dispatcher": "7.0.*",
+        "symfony/expression-language": "7.0.*",
+        "symfony/flex": "^2",
+        "symfony/form": "7.0.*",
+        "symfony/framework-bundle": "7.0.*",
+        "symfony/http-client": "7.0.*",
+        "symfony/messenger": "7.0.*",
+        "symfony/monolog-bundle": "^3.10",
+        "symfony/property-access": "7.0.*",
+        "symfony/property-info": "7.0.*",
+        "symfony/runtime": "7.0.*",
+        "symfony/security-bundle": "7.0.*",
+        "symfony/serializer": "7.0.*",
+        "symfony/twig-bundle": "7.0.*",
+        "symfony/validator": "7.0.*",
+        "symfony/yaml": "7.0.*"
+    },
+    "require-dev": {
+        "behat/behat": "^3.14",
+        "behat/mink-browserkit-driver": "^2.2",
+        "ekino/phpstan-banned-code": "^1.0",
+        "friends-of-behat/mink-extension": "^2.7",
+        "friends-of-behat/symfony-extension": "^2.5",
+        "mockery/mockery": "^1.6",
+        "phpstan/extension-installer": "^1.3",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan-doctrine": "^1.3",
+        "phpstan/phpstan-symfony": "^1.3",
+        "phpunit/phpunit": "^9.5",
+        "symfony/browser-kit": "7.0.*",
+        "symfony/css-selector": "7.0.*",
+        "symfony/debug-bundle": "7.0.*",
+        "symfony/maker-bundle": "^1.52",
+        "symfony/phpunit-bridge": "^7.0",
+        "symfony/stopwatch": "7.0.*",
+        "symfony/var-dumper": "7.0.*",
+        "symfony/web-profiler-bundle": "7.0.*",
+        "symplify/easy-coding-standard": "^12.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true,
+            "phpstan/extension-installer": true
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "errors":[
+            "vendor/bin/phpstan analyse --ansi --no-interaction"
+        ],
+        "behat": [
+            "APP_ENV=test bin/console d:s:d -f",
+            "APP_ENV=test bin/console d:s:u -f",
+            "APP_ENV=test behat --colors"
+        ],
+        "check-cs": "vendor/bin/ecs check --ansi",
+        "fix-cs": "vendor/bin/ecs check --fix --ansi"
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "7.0.*"
+        }
+    }
+}

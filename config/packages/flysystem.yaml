@@ -1,0 +1,9 @@
+# Read the documentation at https://github.com/thephpleague/flysystem-bundle/blob/master/docs/1-getting-started.md
+# Aquí especifiquem on volem que esguardin els fitxers que pujem utilitzant el component flysistem.
+# Podriem dirli que ho guardi en s3 o algun altre proveidor pero aqui ho guardarem en local.
+flysystem:
+    storages:
+        default.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/storage/default'
