@@ -14,10 +14,6 @@ abstract class ApiController extends AbstractController
 
     protected function validateRequest(mixed $request, Assert\Collection $constraints): void
     {
-        if ($request == null) {
-            throw new HttpException(400, 'Invalid DATA');
-        }
-
         Validator::validate($request, $constraints);
     }
 }

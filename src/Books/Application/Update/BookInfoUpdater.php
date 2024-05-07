@@ -36,8 +36,6 @@ class BookInfoUpdater
             new BookScore($updateBookRequest->score())
         );
 
-        $book = $this->book_rep->save($book);
-
         $this->bus->publish(...$book->pullDomainEvents());
 
         return $book;

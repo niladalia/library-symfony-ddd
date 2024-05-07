@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Books\Application\Find\DTO;
+namespace App\Books\Application\Find\Filter;
 
-class RequestBooksFinder
+class FindBookByFilter
 {
     private const DEFAULT_LIMIT = 10;
     private const DEFAULT_OFFSET = 0;

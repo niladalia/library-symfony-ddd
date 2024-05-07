@@ -2,7 +2,8 @@
 
 namespace App\Books\Application\Find;
 
-use App\Books\Application\Find\DTO\RequestBooksFinder;
+use App\Books\Application\Find\Filter\FindBookByFilter;
+use App\Books\Domain\BookFilter;
 use App\Books\Domain\BookRepository;
 use App\Books\Domain\Books;
 use App\Books\Domain\ValueObject\BookScore;
@@ -13,13 +14,15 @@ class BooksFinder
     public function __construct(private BookRepository $book_rep) {}
 
 
-    public function __invoke(RequestBooksFinder $requestBooksFinder): Books
+    public function __invoke(FindBookByFilter $booksFilter): Books
     {
-        return $this->book_rep->findByParams(
-            new BookTitle($requestBooksFinder->title(), true),
-            new BookScore($requestBooksFinder->score()),
-            $requestBooksFinder->limit(),
-            $requestBooksFinder->offset()
+        return $this->book_rep->findByFilter(
+            new BookFilter(
+                new BookTitle($booksFilter->title(), true),
+                new BookScore($booksFilter->score()),
+                $booksFilter->limit(),
+                $booksFilter->offset()
+            )
         );
     }
 }

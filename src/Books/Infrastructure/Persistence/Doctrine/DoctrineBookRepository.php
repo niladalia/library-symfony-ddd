@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Books\Infrastructure\Persistence;
+namespace App\Books\Infrastructure\Persistence\Doctrine;
 
 use App\Books\Domain\Book;
+use App\Books\Domain\BookFilter;
 use App\Books\Domain\BookRepository;
 use App\Books\Domain\Books;
 use App\Books\Domain\ValueObject\BookId;
-use App\Books\Domain\ValueObject\BookScore;
-use App\Books\Domain\ValueObject\BookTitle;
+use App\Books\Infrastructure\Persistence\DoctrineByGeoLocationFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -30,24 +30,14 @@ class DoctrineBookRepository extends ServiceEntityRepository implements BookRepo
         return new Books(...$all_books);
     }
 
-    public function findByParams(?BookTitle $title, ?BookScore $score, ?int $limit, ?int $offset): ?Books
+    public function findByFilter(?BookFilter $filter): ?Books
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('book');
         $qb->from(Book::class, 'book');
 
-        if ($title->getValue() != null) {
-            $qb->where('book.title.value LIKE :title')
-                ->setParameter('title', '%' . $title->getValue() . '%');
-        }
+        $qb = DoctrineFindBookByFilter::filter($qb, $filter);
 
-        if ($score->getValue() != null) {
-            $qb->andWhere('book.score.value = :score')
-                ->setParameter('score', $score->getValue());
-        }
-
-        $qb->setFirstResult($offset);
-        $qb->setMaxResults($limit);
         $books = $qb->getQuery()->getResult();
 
         return new Books(...$books);
