@@ -13,7 +13,6 @@ use App\Books\Domain\ValueObject\BookImage;
 use App\Books\Domain\ValueObject\BookScore;
 use App\Books\Domain\ValueObject\BookTitle;
 use App\Shared\Domain\Event\EventBus;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\UuidGenerator;
 
 readonly class BookCreator
@@ -26,7 +25,6 @@ readonly class BookCreator
 
     public function __invoke(CreateBookRequest $bookRequest)
     {
-        // BookCreator knows about Author Domain logic, I should use a Query Bus and just send the author_id in primitives.
         $author = $bookRequest->author_id() ? ($this->authorFinder)(new AuthorId($bookRequest->author_id())) : null;
 
         $book = Book::create(
@@ -41,6 +39,6 @@ readonly class BookCreator
 
         $this->book_rep->save($book);
 
-        $this->bus->publish(...$book->pullDomainEvents());
+        //$this->bus->publish(...$book->pullDomainEvents());
     }
 }

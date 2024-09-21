@@ -35,9 +35,6 @@ class IsSimilar extends Constraint
                 $otherValue = $property->getValue($other);
 
                 if ($expectedValue != $otherValue) {
-                    var_dump($expectedValue);
-                    var_dump("======");
-                    var_dump($otherValue);
                     $this->differentField = $propertyName;
                     return false;
                 }

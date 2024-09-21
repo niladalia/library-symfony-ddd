@@ -1,7 +1,5 @@
 <?php
 
-// src/Doctrine/Types/AuthorIDType.php
-
 namespace App\Books\Infrastructure\Persistence\Doctrine;
 
 use App\Books\Domain\ValueObject\BookId;

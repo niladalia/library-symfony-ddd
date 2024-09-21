@@ -51,11 +51,12 @@ class BookCreatorUnitTest extends BookUnitTest
         ->with($author->getId()->getValue())
         ->willReturn($author);
 
+        $this->bookCreator->__invoke($createBookRequest);
 
         $this->shouldSave($book);
 
         $this->shouldPublishDomainEvent($domainEvent);
 
-        $this->bookCreator->__invoke($createBookRequest);
+
     }
 }

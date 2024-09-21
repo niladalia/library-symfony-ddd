@@ -17,7 +17,6 @@ use App\Shared\Domain\Event\EventBus;
 class BookInfoUpdater
 {
     public function __construct(
-        private BookRepository $book_rep,
         private BookFinder $bookFinder,
         private AuthorFinder $authorFinder,
         private EventBus $bus

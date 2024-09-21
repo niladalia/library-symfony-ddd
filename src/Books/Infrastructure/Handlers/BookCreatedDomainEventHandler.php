@@ -2,6 +2,7 @@
 
 namespace App\Books\Infrastructure\Handlers;
 
+use App\Books\Application\Create\DTO\FindBookRequest;
 use App\Books\Application\Find\BookFinder;
 use App\Books\Application\UploadFile\BookFileUploader;
 use App\Books\Domain\BookCreatedDomainEvent;
@@ -14,9 +15,11 @@ class BookCreatedDomainEventHandler
 
     public function __invoke(BookCreatedDomainEvent $event)
     {
-        $book = ($this->BookFinder)($event->aggregateId());
+        $bookId = $event->aggregateId();
+        $finderRequest = new FindBookRequest($bookId);
+        $book = ($this->BookFinder)($finderRequest);
 
-        $filename = $event->base64Image() ? $this->fileUploader->__invoke($event->base64Image(), $event->aggregateId(), $event->title()) : null;
+        $filename = $event->base64Image() ? $this->fileUploader->__invoke($event->base64Image(), $bookId, $event->title()) : null;
         $book->updateImage(new BookImage($filename));
 
         $this->bookRep->save($book);

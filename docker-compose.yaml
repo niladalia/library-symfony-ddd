@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-    rabbitmq:
-        container_name: rabbitmq
+    rabbitmq1:
+        container_name: rabbitmq1
         image: 'rabbitmq:3.10.5-management'
         restart: unless-stopped
         ports:
-            - 5672:15672
+            - 5671:15672
         environment:
             - RABBITMQ_DEFAULT_USER=guest
             - RABBITMQ_DEFAULT_PASS=guest
@@ -37,7 +37,7 @@ services:
         volumes:
             - ./:/var/www/librarify/
         ports:
-            - 83:80
+            - 82:80
         networks:
             - librarify_network
             
@@ -61,7 +61,7 @@ volumes:
     librarifyback_app_sync:
         external: true
     db_library:
-    rabbitmq:
+    rabbitmq1:
 
 networks:
     librarify_network:

@@ -5,7 +5,6 @@ namespace App\Books\Infrastructure\Controllers;
 use App\Books\Application\Find\BooksFinder;
 use App\Books\Application\Find\Filter\FindBookByFilter;
 use App\Shared\Infrastructure\Symfony\ApiController;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints as Assert;

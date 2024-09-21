@@ -19,7 +19,7 @@ class BooksPostController extends ApiController
         $this->validateRequest($request_data, $this->constraints());
 
         $bookDto = new CreateBookRequest(
-            // I generate the UUID in the controller for Testing and consistency propouses
+            // I generate the UUID in the controller for Testing and consistency proposes
             Uuid::generate()->getValue(),
             $request_data['title'] ?? null,
             $request_data['author_id'] ?? null,

@@ -20,6 +20,7 @@ abstract class BookUnitTest extends UnitTestCase
         $this->bookRepository = $this->createMock(BookRepository::class);
         $this->bookFinder = $this->createMock(BookFinder::class);
     }
+    
     protected function shouldSave(Book $book): void
     {
         $this->repository()
