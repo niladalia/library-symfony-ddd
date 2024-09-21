@@ -1,4 +1,3 @@
-n
 build-project:
 	docker compose up --build -d
 	docker exec -it librarify_php composer install
