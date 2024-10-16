@@ -1,70 +1,70 @@
-version: '3'
+    version: '3'
 
-services:
-    rabbitmq1:
-        container_name: rabbitmq1
-        image: 'rabbitmq:3.10.5-management'
-        restart: unless-stopped
-        ports:
-            - 5671:15672
-        environment:
-            - RABBITMQ_DEFAULT_USER=guest
-            - RABBITMQ_DEFAULT_PASS=guest
-        networks:
-            - shared_network
-            - librarify_network
-            
-    php:
-        container_name: librarify_php
-        user: "${UID}:${GID}"
-        build:
-            context: .
-            dockerfile: .docker/php/Dockerfile
-            args:
-                TIMEZONE: Europe/Madrid
-        volumes:
-            - ./:/var/www/librarify/
-        extra_hosts:
-            - "host.docker.internal:host-gateway"
-        networks:
-            - librarify_network
+    services:
+        rabbitmq1:
+            container_name: rabbitmq1
+            image: 'rabbitmq:3.10.5-management'
+            restart: unless-stopped
+            ports:
+                - 5672:5672    # AMQP port
+                - 15672:15672  # Management UI port
+            environment:
+                - RABBITMQ_DEFAULT_USER=guest
+                - RABBITMQ_DEFAULT_PASS=guest
+            networks:
+                - shared_network
+                - librarify_network
 
-    nginx:
-        container_name: librarify_nginx
-        build:
-            context: .
-            dockerfile: .docker/nginx/Dockerfile
-        volumes:
-            - ./:/var/www/librarify/
-        ports:
-            - 82:80
-        networks:
-            - librarify_network
-            
-    db:
-        container_name: librarify_db
-        image: mysql:8.0.20
-        command: --default-authentication-plugin=mysql_native_password
-        volumes:
-            - db_library:/var/lib/mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: chopin
-            MYSQL_DATABASE: library
-            MYSQL_USER: nil
-            MYSQL_PASSWORD: chopin
-        ports:
-            - 3307:3306
-        networks:
-            - librarify_network
+        php:
+            container_name: librarify_php
+            user: "${UID}:${GID}"
+            build:
+                context: .
+                dockerfile: .docker/php/Dockerfile
+                args:
+                    TIMEZONE: Europe/Madrid
+            volumes:
+                - ./:/var/www/librarify/
+            extra_hosts:
+                - "host.docker.internal:host-gateway"
+            networks:
+                - librarify_network
 
-volumes:
-    librarifyback_app_sync:
-        external: true
-    db_library:
-    rabbitmq1:
+        nginx:
+            container_name: librarify_nginx
+            build:
+                context: .
+                dockerfile: .docker/nginx/Dockerfile
+            volumes:
+                - ./:/var/www/librarify/
+            ports:
+                - 82:80
+            networks:
+                - librarify_network
 
-networks:
-    librarify_network:
-    shared_network:
-        name: librarify_shared_network  
-        driver: bridge
+        db:
+            container_name: librarify_db
+            image: mysql:8.0.20
+            command: --default-authentication-plugin=mysql_native_password
+            volumes:
+                - db_library:/var/lib/mysql
+            environment:
+                MYSQL_ROOT_PASSWORD: chopin
+                MYSQL_DATABASE: library
+                MYSQL_USER: nil
+                MYSQL_PASSWORD: chopin
+            ports:
+                - 3307:3306
+            networks:
+                - librarify_network
+
+    volumes:
+        librarifyback_app_sync:
+            external: true
+        db_library:
+        rabbitmq1:
+
+    networks:
+        librarify_network:
+        shared_network:
+            driver: bridge

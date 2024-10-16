@@ -6,21 +6,24 @@ use App\Books\Application\Create\BookCreator;
 use App\Books\Application\Create\DTO\CreateBookRequest;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Infrastructure\Symfony\ApiController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class BooksPostController extends ApiController
 {
-    public function __invoke(Request $request, BookCreator $bookCreator): Response
+    public function __invoke(Request $request, BookCreator $bookCreator): JsonResponse
     {
         $request_data = json_decode($request->getContent(), true);
 
         $this->validateRequest($request_data, $this->constraints());
 
+        // I generate the UUID in the controller for Testing and consistency proposes
+        $bookId = Uuid::generate()->getValue();
+
         $bookDto = new CreateBookRequest(
-            // I generate the UUID in the controller for Testing and consistency proposes
-            Uuid::generate()->getValue(),
+            $bookId,
             $request_data['title'] ?? null,
             $request_data['author_id'] ?? null,
             $request_data['base64Image'] ?? null,
@@ -30,7 +33,7 @@ class BooksPostController extends ApiController
 
         $bookCreator->__invoke($bookDto);
 
-        return new Response('', Response::HTTP_CREATED);
+        return new JsonResponse(["book_id" => $bookId], Response::HTTP_CREATED);
     }
 
 

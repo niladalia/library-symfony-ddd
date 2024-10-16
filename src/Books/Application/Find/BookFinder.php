@@ -3,6 +3,7 @@
 namespace App\Books\Application\Find;
 
 use App\Books\Application\Create\DTO\FindBookRequest;
+use App\Books\Application\Find\DTO\FindBookResponse;
 use App\Books\Domain\Book;
 use App\Books\Domain\BookFinder as DomainBookFinder;
 use App\Books\Domain\ValueObject\BookId;
@@ -11,8 +12,17 @@ class BookFinder
 {
     public function __construct(private DomainBookFinder $domainBookFinder) {}
 
-    public function __invoke(FindBookRequest $bookFinderRequest): Book
+    public function __invoke(FindBookRequest $bookFinderRequest): FindBookResponse
     {
-        return $this->domainBookFinder->__invoke(new BookId($bookFinderRequest->id()));
+        $book = $this->domainBookFinder->__invoke(new BookId($bookFinderRequest->id()));
+
+        return new FindBookResponse(
+            $book->getId()->getValue(),
+            $book->title()->getValue(),
+            $book->image()->getValue(),
+            $book->score()->getValue(),
+            $book->description()->getValue(),
+            $book->author() ? $book->author()->toSmallArray() : null
+        );
     }
 }

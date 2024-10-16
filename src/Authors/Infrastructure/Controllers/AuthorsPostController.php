@@ -6,29 +6,30 @@ use App\Authors\Application\Create\CreateAuthorCommand;
 use App\Shared\Domain\Bus\Command\CommandBus;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Infrastructure\Symfony\ApiController;
-use App\Shared\Infrastructure\Symfony\Validator;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthorsPostController extends ApiController
 {
-    public function __invoke(Request $request, CommandBus $commandBus): Response
+    public function __invoke(Request $request, CommandBus $commandBus): JsonResponse
     {
         $request_data = json_decode($request->getContent(), true);
 
         $this->validateRequest($request_data, $this->constraints());
 
+        // I generate the UUID in the controller for Testing and consistency proposes
+        $authorId = Uuid::generate()->getValue();
         $commandBus->dispatch(
             new CreateAuthorCommand(
-                Uuid::generate()->getValue(),
+                $authorId,
                 (string) $request_data['name']
             )
         );
 
 
-        return new Response('', Response::HTTP_CREATED);
+        return new JsonResponse(["author_id" => $authorId], Response::HTTP_CREATED);
     }
 
 

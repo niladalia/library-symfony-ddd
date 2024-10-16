@@ -2,7 +2,7 @@ build-project:
 	docker compose up --build -d
 	docker exec -it librarify_php composer install
 	make prepare-test-db
-	make build-consumers
+	#make build-consumers
 
 start:
 	docker compose up -d

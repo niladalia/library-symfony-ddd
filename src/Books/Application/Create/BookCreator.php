@@ -39,6 +39,6 @@ readonly class BookCreator
 
         $this->book_rep->save($book);
 
-        //$this->bus->publish(...$book->pullDomainEvents());
+        $this->bus->publish(...$book->pullDomainEvents());
     }
 }
