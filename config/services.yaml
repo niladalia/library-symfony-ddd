@@ -13,6 +13,11 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '.. /src/Form/Model'
+    App\Apps\:
+        resource: '../apps/*'
+        tags: [ 'controller.service_arguments' ]
+        public: true
+
     App\Shared\Infrastructure\Symfony\ApiExceptionListener:
      tags:
             - { name: kernel.event_listener, event: kernel.exception }
@@ -26,8 +31,6 @@ services:
             tags: [ { name: messenger.message_handler, bus: messenger.command.bus } ]
         App\Shared\Domain\Bus\Query\QueryHandler:
             tags: [ { name: messenger.message_handler, bus: messenger.query.bus } ]
-
-
 
     App\Books\Infrastructure\Handlers\BookCreatedDomainEventHandler:
         tags: [ { name: messenger.message_handler, fromTransport: 'librarify_book_created_subscriber' } ]

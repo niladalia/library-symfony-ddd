@@ -1,0 +1,68 @@
+<h3 class="font-sans text-gray-900 text-4xl font-bold text-left mt-10 mb-10 border-b-4 border-blue-500">
+    Author List
+</h3>
+<div class="mb-6">
+    <br>
+    En aquest cas, el controlador simplement renderitza la template. Cuan cliquem al botó de show all, SÍ que es crida al endpoint API que retorna un json, en aquest cas a diferencia de books que retorna un objecte llegible per twig, si que necesitem AJAX i JS per tractar el objecte i omplir les taules.
+    <br>
+    <br>
+</div>
+<!-- Author list table -->
+<table class="min-w-full table-auto text-left w-full border-collapse bg-white shadow-md rounded-lg">
+    <thead>
+    <tr>
+        <th class="py-4 px-6 bg-blue-200 font-bold uppercase text-sm text-gray-700 border-b">Id</th>
+        <th class="py-4 px-6 bg-blue-200 font-bold uppercase text-sm text-gray-700 border-b">Name</th>
+    </tr>
+    </thead>
+    <tbody id="author-list-body">
+    <!-- Author rows will be inserted here by JavaScript -->
+    </tbody>
+</table>
+
+<!-- Buttons below the table -->
+<div class="mt-10 relative">
+    <button id="show_authors" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Show all Authors
+    </button>
+</div>
+
+<!-- JavaScript to handle the form submission and fetch author data -->
+<script>
+    document.getElementById('show_authors').addEventListener('click', function() {
+
+        event.preventDefault(); // Prevent form from submitting the traditional way
+
+        const authorListBody = document.getElementById('author-list-body');
+
+        // Clear existing table rows
+        authorListBody.innerHTML = '';
+
+        // Fetch authors from the API
+        fetch(`/api/author`)
+            .then(response => response.json())
+            .then(authors => {
+                // Check if there are any authors in the response
+                if (authors.length === 0) {
+                    const noResultsRow = `<tr><td colspan="4" class="py-4 px-6 border-b text-center">No authors found</td></tr>`;
+                    authorListBody.innerHTML = noResultsRow;
+                } else {
+                    // Loop through the authors and create table rows
+                    authors.forEach((author, index) => {
+                        const row = `
+                            <tr class="${index % 2 === 0 ? 'bg-gray-50' : 'bg-gray-100'} hover:bg-blue-50">
+                                <td class="py-4 px-6 border-b">${author.id}</td>
+                                <td class="py-4 px-6 border-b">${author.name}</td>
+                            </tr>
+                        `;
+                        authorListBody.innerHTML += row;
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching authors:', error);
+                const errorRow = `<tr><td colspan="4" class="py-4 px-6 border-b text-center text-red-500">Error fetching authors</td></tr>`;
+                authorListBody.innerHTML = errorRow;
+            });
+    });
+</script>

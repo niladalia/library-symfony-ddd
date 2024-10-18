@@ -1,4 +1,6 @@
+# config/packages/twig.yaml
 twig:
+    default_path: '%kernel.project_dir%/apps/frontend/src/Templates'
     file_name_pattern: '*.twig'
     globals:
         image_dir: 'storage/default/'

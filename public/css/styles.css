@@ -1,0 +1,168 @@
+/* public/css/styles.css */
+
+html, body {
+    height: 100%; /* Allow full height for body */
+    margin: 0;    /* Remove default margin */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1; /* Allow the container to grow and fill space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+    text-align: center;      /* Center text */
+}
+
+footer {
+    /* Optional styles for footer */
+    background-color: #f8f9fa; /* Example footer color */
+    padding: 10px;
+    text-align: center;
+}
+/* public/css/styles.css */
+
+.buttons {
+    margin-top: 20px; /* Add some space above the buttons */
+}
+
+.buttons a {
+    display: inline-block; /* Ensure the buttons are block elements */
+    padding: 10px 20px; /* Add padding for a better look */
+    font-size: 16px; /* Adjust font size */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Remove underline */
+    margin: 5px; /* Space between buttons */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions for effects */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Primary button color */
+    color: white; /* Text color */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Secondary button color */
+    color: white; /* Text color */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Darker shade on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto; /* Center the content horizontally */
+}
+/* Styles for table */
+.table-auto {
+    margin-top: 20px;
+    border-spacing: 0;
+    width: 100%;
+    background-color: white;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-auto thead th {
+    background-color: #e0f2fe; /* Soft blue for the header */
+    color: #1e293b; /* Darker text for contrast */
+    border-bottom: 2px solid #94a3b8;
+}
+
+.table-auto tbody tr:nth-child(odd) {
+    background-color: #f8fafc; /* Light gray for odd rows */
+}
+
+.table-auto tbody tr:nth-child(even) {
+    background-color: #e2e8f0; /* Slightly darker gray for even rows */
+}
+
+.table-auto tbody tr:hover {
+    background-color: #cbd5e1; /* Highlight with light blue on hover */
+}
+
+.table-auto th, .table-auto td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #cbd5e1;
+    text-align: left;
+}
+
+/* Button hover effects */
+button:hover {
+    background-color: #1e40af; /* Deep blue on hover */
+}
+
+h3 {
+    font-size: 2.5rem; /* Increase the font size */
+    color: #1e293b;    /* Darker color for better contrast */
+    text-align: center; /* Center the text */
+    margin-top: 2rem;   /* Add some space above */
+    margin-bottom: 2rem; /* Add space below */
+    font-weight: 700;   /* Make the title bold */
+    border-bottom: 4px solid #3b82f6; /* Add a blue underline */
+    padding-bottom: 0.5rem; /* Add some padding to separate the underline */
+    display: inline-block;  /* Allow centering with margin auto */
+}
+
+.hidden {
+    display: none;
+}
+
+/* Styles for the Add Book form */
+#add-book-form {
+    background-color: #f9fafb; /* Light background for form */
+    padding: 20px; /* Padding around the form */
+    border: 1px solid #e2e8f0; /* Border to separate the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    margin-top: 20px; /* Add space between form and table */
+}
+
+#add-book-form input, #add-book-form textarea {
+    background-color: #ffffff; /* White background for inputs */
+    border: 1px solid #cbd5e1; /* Light border for inputs */
+    border-radius: 4px; /* Rounded corners for inputs */
+    padding: 12px; /* Padding inside the inputs */
+    font-size: 16px; /* Slightly larger font for readability */
+    width: 100%; /* Make inputs full width */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    margin-bottom: 16px; /* Space between input fields */
+}
+
+#add-book-form input:focus, #add-book-form textarea:focus {
+    border-color: #3b82f6; /* Blue border on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* Light shadow on focus */
+}
+
+#add-book-form textarea {
+    resize: vertical; /* Allow vertical resizing for textarea */
+    min-height: 100px; /* Set a minimum height for the textarea */
+}
+
+#add-book-form button {
+    background-color: #10b981; /* Green background for submit button */
+    color: white; /* White text */
+    padding: 12px 20px; /* Add padding for a clickable area */
+    font-size: 16px; /* Make the font size match inputs */
+    border-radius: 4px; /* Rounded corners for button */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+    cursor: pointer; /* Show pointer cursor on hover */
+    width: 100%; /* Full width button */
+}
+
+#add-book-form button:hover {
+    background-color: #059669; /* Darker green on hover */
+}

@@ -1,0 +1,14 @@
+home_get:
+  path: /
+  controller: App\Apps\frontend\src\Controllers\HomeWebController
+  methods:  [GET]
+
+get_books:
+  path: /books
+  controller: App\Apps\frontend\src\Controllers\Books\GetBooksWebController
+  methods:  [GET]
+
+get_authors:
+  path: /authors
+  controller: App\Apps\frontend\src\Controllers\Authors\GetAuthorsWebController
+  methods:  [GET]

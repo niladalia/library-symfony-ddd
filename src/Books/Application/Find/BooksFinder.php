@@ -2,7 +2,7 @@
 
 namespace App\Books\Application\Find;
 
-use App\Books\Application\Find\Filter\FindBookByFilter;
+use App\Books\Application\Find\Filter\FindBookByFilterRequest;
 use App\Books\Domain\BookFilter;
 use App\Books\Domain\BookRepository;
 use App\Books\Domain\Books;
@@ -14,7 +14,7 @@ class BooksFinder
     public function __construct(private BookRepository $book_rep) {}
 
 
-    public function __invoke(FindBookByFilter $booksFilter): Books
+    public function __invoke(FindBookByFilterRequest $booksFilter): Books
     {
         return $this->book_rep->findByFilter(
             new BookFilter(

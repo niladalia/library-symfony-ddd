@@ -2,7 +2,7 @@
 
 namespace App\Books\Application\Find\Filter;
 
-class FindBookByFilter
+class FindBookByFilterRequest
 {
     private const DEFAULT_LIMIT = 10;
     private const DEFAULT_OFFSET = 0;

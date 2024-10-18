@@ -1,0 +1,145 @@
+<h3 class="font-sans text-gray-900 text-4xl font-bold text-left mt-10 mb-10 border-b-4 border-blue-500">
+    Book Filter Table.
+</h3>
+
+<!-- Input box and submit button for book title search -->
+<div class="mb-6">
+    <br>
+    El controlador, abans de renderitzar la pagina busca els parametres de query i filtra. Al entrar per primer cop, com que no hi han parametres de query, simplement retorna tots els llibres i despres renderitza.
+    <br>
+    Cuan filtrem per titol, en comptes de cridar a un endpoint del backend, simplement crida al mateix endpoint web amb el parametre de títol com com atribut de URL i ja es filtra automaticament, d'aquesta manera ens estalviemt tenir que cridar a la API que ens retornará un json i tindriem que aplicar AJAX.
+    <br>
+    Per afegir un llibre, si que cridem a endpoint de API amb ajax, i simplement refresquem la pagoina.
+    <br>
+    <br>
+    <form id="book-search-form" method="get" action="{{ path('get_books') }}" class="flex items-center">
+        <input
+                type="text"
+                name="title"
+                id="book-title-input"
+                placeholder="Enter book title"
+                class="border border-gray-300 rounded-l py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+                type="submit"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r focus:outline-none focus:shadow-outline"
+        >
+            Filter
+        </button>
+    </form>
+</div>
+
+<!-- Book list table -->
+<table class="min-w-full table-auto text-left w-full border-collapse bg-white shadow-md rounded-lg">
+    <thead>
+    <tr>
+        <th class="py-4 px-6 bg-blue-200 font-bold uppercase text-sm text-gray-700 border-b">Title</th>
+        <th class="py-4 px-6 bg-blue-200 font-bold uppercase text-sm text-gray-700 border-b">Author</th>
+        <th class="py-4 px-6 bg-blue-200 font-bold uppercase text-sm text-gray-700 border-b">Score</th>
+        <th class="py-4 px-6 bg-blue-200 font-bold uppercase text-sm text-gray-700 border-b">Description</th>
+    </tr>
+    </thead>
+    <tbody id="book-list-body">
+    {% for book in books %}
+        <tr>
+            <td class="py-4 px-6 border-b">{{ book.title }}</td>
+            <td class="py-4 px-6 border-b">{{ book.author is null ? '-' : book.author.name }}</td>
+            <td class="py-4 px-6 border-b">{{ book.score }}</td>
+            <td class="py-4 px-6 border-b">{{ book.description }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4" class="py-4 px-6 border-b text-center">No books found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<!-- Add Book Button -->
+<div class="mt-10 relative">
+    <button id="add-book-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Add Book
+    </button>
+</div>
+
+<!-- Add Book Form (Initially hidden) -->
+<div id="add-book-form" class="mt-6 hidden">
+    <form id="book-add-form" class="flex flex-col gap-4">
+        <input
+                type="text"
+                id="book-title"
+                placeholder="Title"
+                class="border border-gray-300 py-2 px-4 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+        />
+        <input
+                type="number"
+                id="book-score"
+                placeholder="Score"
+                class="border border-gray-300 py-2 px-4 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <textarea
+                id="book-description"
+                placeholder="Description"
+                class="border border-gray-300 py-2 px-4 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        ></textarea>
+        <input
+                type="text"
+                id="book-author-id"
+                placeholder="Author ID"
+                class="border border-gray-300 py-2 px-4 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+                type="submit"
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+            Submit
+        </button>
+    </form>
+</div>
+
+<!-- JavaScript to handle the Add Book form visibility and submission -->
+<script>
+    // Show the add book form when the "Add Book" button is clicked
+    document.getElementById('add-book-btn').addEventListener('click', function() {
+        const addBookForm = document.getElementById('add-book-form');
+        addBookForm.classList.toggle('hidden'); // Show or hide the form
+    });
+
+    // Handle the Add Book form submission
+    document.getElementById('book-add-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const title = document.getElementById('book-title').value;
+        const score = document.getElementById('book-score').value;
+        const description = document.getElementById('book-description').value;
+        const authorIdInput = document.getElementById('book-author-id').value;
+        const authorId = authorIdInput === "" ? null : authorIdInput;
+        // Submit data to the API using a POST request
+        fetch('/api/book', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: title,
+                score: score,
+                description: description,
+                author_id: authorId,
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.book_id) {
+                    alert('Book added successfully!');
+                    // Optionally, refresh the book list or clear the form
+                    location.reload();
+                } else {
+                    alert('Error adding book: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error adding book:', error);
+            });
+    });
+</script>

@@ -1,10 +1,9 @@
-Implement a frontend structure.
-Footer saying wharever.
-Header with name of page and menu ( books - authors )
-Home page with a footer and header. In the body, just add 2 buttons  with author and books.
 
 
-* Mirar si al borrar un autor, tambe es borren els llibres que tenia l'autor. En aquest, cas, fer implementació
-crec que la millor seria a través d'un event que notifiqui a un listener que l'autor s'ha borrat.
+* Mirar si al borrar un autor, tambe es borren els llibres que tenia l'autor. En aquest, cas,
+fer implementació crec que la millor seria a través d'un event que notifiqui a un listener
+que l'autor s'ha borrat.
 També es podria fer un bloqueig que digui que no espugui borrar un autor perque te llibres relacionats.
 Es poden fer les dues coses. Començar per el bloqueig.
+
+* Seguir amb PIM

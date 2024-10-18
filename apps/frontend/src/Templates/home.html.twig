@@ -1,0 +1,19 @@
+{# apps/frontend/src/Templates/home.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'partials/header.html.twig' %}
+
+    <div class="container text-center">
+        <h1>Welcome to the Library!</h1>
+        <p>Explore our collection of books and authors.</p>
+
+        <div class="buttons">
+            <a href="{{ path('get_books') }}" class="btn btn-primary">View Latest Books</a>
+            <a href="{{ path('get_authors') }}" class="btn btn-secondary">View Latest Authors</a>
+        </div>
+
+    </div>
+
+    {% include 'partials/footer.html.twig' %}
+{% endblock %}
