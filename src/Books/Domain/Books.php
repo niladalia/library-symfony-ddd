@@ -21,6 +21,10 @@ final class Books
         return $books;
     }
 
+    public function count(): int
+    {
+        return count($this->books);
+    }
     public function toSmallArray(): array
     {
         $books = [];

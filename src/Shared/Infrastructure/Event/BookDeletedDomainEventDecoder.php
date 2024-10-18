@@ -19,6 +19,7 @@ final class BookDeletedDomainEventDecoder implements SerializerInterface
 
         $message = new BookDeletedDomainEvent(
             $attributes['aggregateId'],
+            $attributes['authorId'],
             $attributes['eventId'],
             $attributes['occurred_on']
         );

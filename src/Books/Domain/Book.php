@@ -81,7 +81,8 @@ class Book
     {
         $this->addDomainEvent(
             new BookDeletedDomainEvent(
-                $this->getId()->getValue()
+                $this->getId()->getValue(),
+                $this->author()->getId()->getValue()
             )
         );
     }

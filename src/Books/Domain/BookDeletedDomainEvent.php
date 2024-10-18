@@ -8,6 +8,7 @@ class BookDeletedDomainEvent extends DomainEvent
 {
     public function __construct(
         private string $bookId,
+        private string $authorId,
         string $eventId = null,
         string $occurredOn = null
     ) {
@@ -19,19 +20,23 @@ class BookDeletedDomainEvent extends DomainEvent
         return $this->bookId;
     }
 
+    public function authorId(): string{
+        return $this->authorId;
+    }
     public static function deserialize(
         string $aggregateId,
         array  $body,
         string $eventId,
         string $occurredOn
     ): DomainEvent {
-        return new self($aggregateId, $eventId, $occurredOn);
+        return new self($aggregateId, $body['authorId'], $eventId, $occurredOn);
     }
 
     public function serialize(): array
     {
         return [
             'aggregateId' => $this->aggregateId(),
+            'authorId' => $this->authorId(),
             'eventId' => $this->eventId(),
             'occurred_on' => $this->occurredOn(),
         ];

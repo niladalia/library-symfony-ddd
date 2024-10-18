@@ -19,6 +19,7 @@ class DeleteAuthor
     {
         $author = $this->author_finder->__invoke($authorId);
         try {
+            $author->delete();
             $this->author_rep->delete($author);
         } catch (ForeignKeyConstraintViolationException) {
             BookAssociatedException::throw($authorId->getValue());

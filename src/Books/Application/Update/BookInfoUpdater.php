@@ -19,7 +19,8 @@ class BookInfoUpdater
     public function __construct(
         private BookFinder $bookFinder,
         private AuthorFinder $authorFinder,
-        private EventBus $bus
+        private EventBus $bus,
+        private BookRepository $repository
     ) {}
 
     public function __invoke(UpdateBookInfoRequest $updateBookRequest): Book
@@ -34,6 +35,8 @@ class BookInfoUpdater
             new BookDescription($updateBookRequest->description()),
             new BookScore($updateBookRequest->score())
         );
+
+        $this->repository->save($book);
 
         $this->bus->publish(...$book->pullDomainEvents());
 
