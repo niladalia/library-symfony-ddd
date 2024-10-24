@@ -13,7 +13,6 @@ use App\Books\Domain\ValueObject\BookImage;
 use App\Books\Domain\ValueObject\BookScore;
 use App\Books\Domain\ValueObject\BookTitle;
 use App\Shared\Domain\Event\EventBus;
-use App\Shared\Domain\ValueObject\UuidGenerator;
 
 readonly class BookCreator
 {
