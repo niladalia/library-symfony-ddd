@@ -18,11 +18,11 @@ framework:
         transports:
             librarify_book_created_subscriber:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
-                serializer: App\Shared\Infrastructure\Event\BookCreatedDomainEventDecoder
-                options:    
+                serializer: '%messenger.serializer%'
+                options:
                     exchange:
                         name: exchange_librarify
-                        type: topic                      
+                        type: topic
                     queues:
                         librarify.book.book_created:
                             binding_keys: [ 'librarify.book.1.event.book.created' ]
@@ -31,7 +31,7 @@ framework:
 
             librarify_book_updated_subscriber:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
-                serializer: App\Shared\Infrastructure\Event\BookUpdatedDomainEventDecoder
+                serializer: '%messenger.serializer%'
                 options:
                     exchange:
                         name: exchange_librarify
@@ -44,7 +44,7 @@ framework:
 
             librarify_book_deleted_subscriber:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
-                serializer: App\Shared\Infrastructure\Event\BookDeletedDomainEventDecoder
+                serializer: '%messenger.serializer%'
                 options:
                     exchange:
                         name: exchange_librarify
@@ -57,7 +57,7 @@ framework:
 
             amqp:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
-                serializer: serializer.amqp
+                serializer: '%messenger.serializer%'
                 options:
                     exchange:
                         name: exchange_librarify
@@ -65,6 +65,5 @@ framework:
                     queues: [ ]
 
             sync: 'sync://'
-
         routing:
             '*': amqp

@@ -14,4 +14,5 @@ return [
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true],
     FriendsOfBehat\SymfonyExtension\Bundle\FriendsOfBehatSymfonyExtensionBundle::class => ['test' => true],
     Nelmio\ApiDocBundle\NelmioApiDocBundle::class => ['all' => true],
+    RabbitMessengerBundle\RabbitMessengerBundle::class => ['all' => true],
 ];

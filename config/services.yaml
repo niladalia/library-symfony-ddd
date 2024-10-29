@@ -1,9 +1,11 @@
 parameters:
     app.api_token: '%env(resolve:APP_API_TOKEN)%'
+    messenger.serializer: RabbitMessengerBundle\Infrastructure\Serializer\MessengerSerializer
+
 services:
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true
+        autoconfigure: true
         bind:
             $messengerAuditLogger: '@monolog.logger.messenger_audit'
     App\:
@@ -12,9 +14,10 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-            - '.. /src/Form/Model'
+            - '../src/Form/Model'
+
     App\Shared\Infrastructure\Symfony\ApiExceptionListener:
-     tags:
+        tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
     App\Books\Domain\BookFileManagerInterface: '@App\Books\Infrastructure\Uploader\LocalBookFileManager'
@@ -27,8 +30,6 @@ services:
         App\Shared\Domain\Bus\Query\QueryHandler:
             tags: [ { name: messenger.message_handler, bus: messenger.query.bus } ]
 
-
-
     App\Books\Infrastructure\Handlers\BookCreatedDomainEventHandler:
         tags: [ { name: messenger.message_handler, fromTransport: 'librarify_book_created_subscriber' } ]
     App\Books\Infrastructure\Handlers\BookDeletedDomainEventHandler:
@@ -36,6 +37,7 @@ services:
     App\Books\Infrastructure\Handlers\BookUpdatedDomainEventHandler:
         tags: [ { name: messenger.message_handler, fromTransport: 'librarify_book_updated_subscriber' } ]
 
-    serializer.amqp:
-        class: App\Shared\Infrastructure\Event\DomainEventJsonSerializer
-        autowire: false
+    App\Shared\Infrastructure\Event\DomainEventMapper:
+        public: true  # Ensure the mapper is accessible
+
+    RabbitMessengerBundle\Domain\Event\Mapper\DomainEventMapperInterface: '@App\Shared\Infrastructure\Event\DomainEventMapper'

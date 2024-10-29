@@ -8,8 +8,7 @@ use App\Books\Domain\ValueObject\BookId;
 use App\Books\Domain\ValueObject\BookImage;
 use App\Books\Domain\ValueObject\BookScore;
 use App\Books\Domain\ValueObject\BookTitle;
-use App\Shared\Domain\Event\DomainEvent;
-use App\Shared\Domain\ValueObject\Uuid;
+use RabbitMessengerBundle\Domain\Event\DomainEvent;
 
 class Book
 {

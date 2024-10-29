@@ -5,11 +5,11 @@ namespace App\Books\Application\Delete;
 use App\Books\Domain\BookRepository;
 use App\Books\Domain\BookFinder;
 use App\Books\Domain\ValueObject\BookId;
-use App\Shared\Domain\Event\EventBus;
+use RabbitMessengerBundle\Domain\Event\DomainEventPublisherInterface;
 
 class DeleteBook
 {
-    public function __construct(private BookRepository $bookRep, private BookFinder $bookFinder, private EventBus $bus) {}
+    public function __construct(private BookRepository $bookRep, private BookFinder $bookFinder, private DomainEventPublisherInterface $publisher) {}
 
 
     public function __invoke(string $id): void
@@ -20,6 +20,6 @@ class DeleteBook
 
         $this->bookRep->delete($book);
 
-        $this->bus->publish(...$book->pullDomainEvents());
+        $this->publisher->publish(...$book->pullDomainEvents());
     }
 }

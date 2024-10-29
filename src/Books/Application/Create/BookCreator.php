@@ -12,14 +12,14 @@ use App\Books\Domain\ValueObject\BookId;
 use App\Books\Domain\ValueObject\BookImage;
 use App\Books\Domain\ValueObject\BookScore;
 use App\Books\Domain\ValueObject\BookTitle;
-use App\Shared\Domain\Event\EventBus;
+use RabbitMessengerBundle\Domain\Event\DomainEventPublisherInterface;
 
 readonly class BookCreator
 {
     public function __construct(
         private BookRepository $book_rep,
         private AuthorFinder $authorFinder,
-        private EventBus $bus
+        private DomainEventPublisherInterface $publisher
     ) {}
 
     public function __invoke(CreateBookRequest $bookRequest)
@@ -38,6 +38,6 @@ readonly class BookCreator
 
         $this->book_rep->save($book);
 
-        $this->bus->publish(...$book->pullDomainEvents());
+        $this->publisher->publish(...$book->pullDomainEvents());
     }
 }

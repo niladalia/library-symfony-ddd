@@ -2,7 +2,7 @@
 
 namespace App\Books\Domain;
 
-use App\Shared\Domain\Event\DomainEvent;
+use RabbitMessengerBundle\Domain\Event\DomainEvent;
 
 class BookDeletedDomainEvent extends DomainEvent
 {
@@ -25,11 +25,11 @@ class BookDeletedDomainEvent extends DomainEvent
     }
     public static function deserialize(
         string $aggregateId,
-        array  $body,
         string $eventId,
+        array  $attributes,
         string $occurredOn
     ): DomainEvent {
-        return new self($aggregateId, $body['authorId'], $eventId, $occurredOn);
+        return new self($aggregateId, $attributes['authorId'], $eventId, $occurredOn);
     }
 
     public function serialize(): array

@@ -6,7 +6,7 @@ use App\Shared\Domain\Event\DomainEvent;
 use App\Shared\Domain\Event\EventBus;
 use Symfony\Component\Messenger\Bridge\Amqp\Transport\AmqpStamp;
 use Symfony\Component\Messenger\MessageBusInterface;
-
+use RabbitMessengerBundle\Domain\Event\DomainEvent as BundleDomainEvent;
 final class RabbitMqEventBus implements EventBus
 {
     private $bus;
@@ -18,7 +18,7 @@ final class RabbitMqEventBus implements EventBus
         $this->bus = $messengerBusEventAsync;
     }
 
-    public function publish(DomainEvent ...$domainEvents): void
+    public function publish(BundleDomainEvent ...$domainEvents): void
     {
         foreach ($domainEvents as $domainEvent) {
             $routingKey = $domainEvent::eventName();

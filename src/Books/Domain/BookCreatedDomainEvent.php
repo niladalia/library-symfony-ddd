@@ -2,7 +2,7 @@
 
 namespace App\Books\Domain;
 
-use App\Shared\Domain\Event\DomainEvent;
+use RabbitMessengerBundle\Domain\Event\DomainEvent;
 
 class BookCreatedDomainEvent extends DomainEvent
 {
@@ -48,27 +48,33 @@ class BookCreatedDomainEvent extends DomainEvent
     {
         return $this->base64Image;
     }
-    // TODO : Not correct
+
     public static function deserialize(
         string $aggregateId,
-        array  $body,
         string $eventId,
+        array  $attributes,
         string $occurredOn
     ): DomainEvent {
-        return new self($aggregateId, $body['title'], $body['authorId'], $body['description'], $body['score'], $body['base64Image'], $eventId, $occurredOn);
+        return new self(
+            $aggregateId,
+            $attributes['title'],
+            $attributes['authorId'],
+            $attributes['description'],
+            $attributes['score'],
+            $attributes['base64Image'],
+            $eventId,
+            $occurredOn
+        );
     }
 
     public function serialize(): array
     {
         return [
-            'bookId' => $this->aggregateId(),
             'title' => $this->title(),
             'authorId' => $this->authorId(),
             'description' => $this->description(),
             'score' => $this->score(),
-            'base64Image' => $this->base64Image(),
-            'eventId' => $this->eventId(),
-            'occurred_on' => $this->occurredOn(),
+            'base64Image' => $this->base64Image()
         ];
     }
 

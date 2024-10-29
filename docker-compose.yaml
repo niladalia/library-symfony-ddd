@@ -25,6 +25,7 @@
                     TIMEZONE: Europe/Madrid
             volumes:
                 - ./:/var/www/librarify/
+                - /var/www/nil_projects/bundles:/var/www/nil_projects/bundles
             extra_hosts:
                 - "host.docker.internal:host-gateway"
             networks:

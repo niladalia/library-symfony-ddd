@@ -13,13 +13,14 @@ use App\Books\Domain\ValueObject\BookId;
 use App\Books\Domain\ValueObject\BookScore;
 use App\Books\Domain\ValueObject\BookTitle;
 use App\Shared\Domain\Event\EventBus;
+use RabbitMessengerBundle\Domain\Event\DomainEventPublisherInterface;
 
 class BookInfoUpdater
 {
     public function __construct(
         private BookFinder $bookFinder,
         private AuthorFinder $authorFinder,
-        private EventBus $bus,
+        private DomainEventPublisherInterface $publisher,
         private BookRepository $repository
     ) {}
 
@@ -38,7 +39,7 @@ class BookInfoUpdater
 
         $this->repository->save($book);
 
-        $this->bus->publish(...$book->pullDomainEvents());
+        $this->publisher->publish(...$book->pullDomainEvents());
 
         return $book;
     }

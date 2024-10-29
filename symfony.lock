@@ -98,6 +98,9 @@
             "config/packages/nelmio_cors.yaml"
         ]
     },
+    "niladalia/rabbit-messenger-bundle": {
+        "version": "dev-main"
+    },
     "phpstan/phpstan": {
         "version": "1.10",
         "recipe": {

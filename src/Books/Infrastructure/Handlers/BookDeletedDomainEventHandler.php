@@ -31,6 +31,7 @@ class BookDeletedDomainEventHandler
         }
         /** @var FindAuthorResponse $response */
         $response = $this->queryBus->ask(new FindAuthorQuery($authorId));
+
         if(count($response->books()) == 0){
             $this->commandBus->dispatch(new DeleteAuthorCommand($authorId));
         }

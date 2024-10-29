@@ -1,3 +1,8 @@
+home:
+    path: /api/book/bundle_test
+    controller: App\toDelete\BundleTestController
+    methods:  [GET]
+
 book_controller_get:
     path: /api/book
     controller: App\Books\Infrastructure\Controllers\BooksGetController
