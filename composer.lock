@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "749c980068599966d7bc87400eb6838d",
+    "content-hash": "96185ef3cadbf2b8f0dd5250ae9d5ccc",
     "packages": [
         {
             "name": "api-platform/core",
@@ -2550,11 +2550,17 @@
         },
         {
             "name": "niladalia/rabbit-messenger-bundle",
-            "version": "dev-main",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/niladalia/rabbit-messenger-bundle.git",
+                "reference": "36d471e148c6bda2f4a7d036d4875b59e4b4e116"
+            },
             "dist": {
-                "type": "path",
-                "url": "/var/www/nil_projects/bundles/RabbitMessengerBundle",
-                "reference": "714826c63cf262d3f37e17f270e44e428536f9a8"
+                "type": "zip",
+                "url": "https://api.github.com/repos/niladalia/rabbit-messenger-bundle/zipball/36d471e148c6bda2f4a7d036d4875b59e4b4e116",
+                "reference": "36d471e148c6bda2f4a7d036d4875b59e4b4e116",
+                "shasum": ""
             },
             "require": {
                 "php": "^8.2",
@@ -2563,6 +2569,7 @@
                 "symfony/messenger": "^5.0|^6.0|^7.0|^8.0",
                 "symfony/monolog-bundle": "^3.10"
             },
+            "default-branch": true,
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -2578,11 +2585,13 @@
                     "RabbitMessengerBundle\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "description": "A simple Symfony bundle that says 'Hello, World!'",
-            "transport-options": {
-                "symlink": true,
-                "relative": false
-            }
+            "support": {
+                "issues": "https://github.com/niladalia/rabbit-messenger-bundle/issues",
+                "source": "https://github.com/niladalia/rabbit-messenger-bundle/tree/master"
+            },
+            "time": "2024-10-29T11:32:21+00:00"
         },
         {
             "name": "niladalia/template-bundle",

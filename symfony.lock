@@ -99,7 +99,7 @@
         ]
     },
     "niladalia/rabbit-messenger-bundle": {
-        "version": "dev-main"
+        "version": "dev-master"
     },
     "phpstan/phpstan": {
         "version": "1.10",
