@@ -2,9 +2,8 @@
 
 namespace App\Books\Application\Find;
 
-use App\Books\Application\Create\DTO\FindBookRequest;
+use App\Books\Application\Find\DTO\FindBookRequest;
 use App\Books\Application\Find\DTO\FindBookResponse;
-use App\Books\Domain\Book;
 use App\Books\Domain\BookFinder as DomainBookFinder;
 use App\Books\Domain\ValueObject\BookId;
 

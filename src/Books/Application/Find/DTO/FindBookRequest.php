@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Books\Application\Create\DTO;
+namespace App\Books\Application\Find\DTO;
 
 class FindBookRequest
 {

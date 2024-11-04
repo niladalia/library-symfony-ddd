@@ -2,9 +2,8 @@
 
 namespace App\Books\Infrastructure\Controllers;
 
-use App\Authors\Application\Find\FindAuthorResponse;
-use App\Books\Application\Create\DTO\FindBookRequest;
 use App\Books\Application\Find\BookFinder;
+use App\Books\Application\Find\DTO\FindBookRequest;
 use App\Books\Application\Find\DTO\FindBookResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

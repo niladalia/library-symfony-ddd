@@ -2,10 +2,9 @@
 
 namespace App\Books\Infrastructure\Handlers;
 
-use App\Books\Application\Create\DTO\FindBookRequest;
-use App\Books\Domain\BookFinder;
 use App\Books\Application\UploadFile\BookFileUploader;
 use App\Books\Domain\BookCreatedDomainEvent;
+use App\Books\Domain\BookFinder;
 use App\Books\Domain\BookRepository;
 use App\Books\Domain\ValueObject\BookId;
 use App\Books\Domain\ValueObject\BookImage;
