@@ -5,7 +5,6 @@ namespace App\Books\Infrastructure\Controllers;
 use App\Books\Application\Update\BookInfoUpdater;
 use App\Books\Application\Update\DTO\UpdateBookInfoRequest;
 use App\Shared\Infrastructure\Symfony\ApiController;
-use App\Shared\Infrastructure\Symfony\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints as Assert;

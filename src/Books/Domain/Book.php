@@ -9,7 +9,6 @@ use App\Books\Domain\ValueObject\BookImage;
 use App\Books\Domain\ValueObject\BookScore;
 use App\Books\Domain\ValueObject\BookTitle;
 use App\Shared\Domain\Event\DomainEvent;
-use App\Shared\Domain\ValueObject\Uuid;
 
 class Book
 {

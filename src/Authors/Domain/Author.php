@@ -45,9 +45,11 @@ class Author
         return $this;
     }
 
-    public function delete(){
-        if($this->getBooks()->count() > 0)
+    public function delete()
+    {
+        if ($this->getBooks()->count() > 0) {
             BookAssociatedException::throw($this->id->getValue());
+        }
     }
     public function getBooks(): Books
     {

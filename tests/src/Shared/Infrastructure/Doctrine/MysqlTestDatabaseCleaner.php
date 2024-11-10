@@ -3,7 +3,6 @@
 namespace App\Tests\src\Shared\Infrastructure\Doctrine;
 
 use Doctrine\DBAL\Connection;
-use function Lambdish\Phunctional\first;
 
 class MysqlTestDatabaseCleaner
 {

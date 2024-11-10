@@ -7,7 +7,6 @@ use App\Books\Domain\BookFilter;
 use App\Books\Domain\BookRepository;
 use App\Books\Domain\Books;
 use App\Books\Domain\ValueObject\BookId;
-use App\Books\Infrastructure\Persistence\DoctrineByGeoLocationFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -60,5 +59,4 @@ class DoctrineBookRepository extends ServiceEntityRepository implements BookRepo
         $this->getEntityManager()->remove($book);
         $this->getEntityManager()->flush();
     }
-
 }

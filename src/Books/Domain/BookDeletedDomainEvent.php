@@ -20,7 +20,8 @@ class BookDeletedDomainEvent extends DomainEvent
         return $this->bookId;
     }
 
-    public function authorId(): string{
+    public function authorId(): string
+    {
         return $this->authorId;
     }
     public static function deserialize(

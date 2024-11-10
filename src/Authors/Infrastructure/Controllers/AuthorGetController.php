@@ -6,7 +6,6 @@ use App\Authors\Application\Find\FindAuthorQuery;
 use App\Authors\Application\Find\FindAuthorResponse;
 use App\Shared\Domain\Bus\Query\QueryBus;
 use App\Shared\Infrastructure\Symfony\ApiController;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AuthorGetController extends ApiController

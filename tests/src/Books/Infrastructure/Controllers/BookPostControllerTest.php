@@ -3,10 +3,8 @@
 namespace App\Tests\src\Books\Infrastructure\Controllers;
 
 use App\Authors\Infrastructure\Persistence\DoctrineAuthorRepository;
-use App\Books\Domain\ValueObject\BookScore;
 use App\Tests\src\Authors\Domain\AuthorMother;
 use App\Tests\src\Authors\Domain\ValueObject\AuthorIdMother;
-use App\Tests\src\Authors\Domain\ValueObject\AuthorNameMother;
 use App\Tests\src\Books\Domain\ValueObject\BookDescriptionMother;
 use App\Tests\src\Books\Domain\ValueObject\BookScoreMother;
 use App\Tests\src\Books\Domain\ValueObject\BookTitleMother;

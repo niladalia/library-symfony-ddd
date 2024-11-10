@@ -11,8 +11,7 @@ class FindBookResponse
         private ?float $score,
         private ?string $description,
         private ?array $author
-    )
-    { }
+    ) {}
 
     public function data(): array
     {

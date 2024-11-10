@@ -2,7 +2,6 @@
 
 namespace App\Tests\src\Shared\Infrastructure\PhpUnit;
 
-use App\Shared\Domain\Bus\Command\CommandBus;
 use App\Shared\Domain\Bus\Command\CommandInterface;
 use App\Shared\Domain\Bus\Query\QueryInterface;
 use App\Shared\Domain\Bus\Query\Response;

@@ -3,8 +3,6 @@
 namespace App\Books\Domain;
 
 use App\Books\Domain\ValueObject\BookId;
-use App\Books\Domain\ValueObject\BookScore;
-use App\Books\Domain\ValueObject\BookTitle;
 
 interface BookRepository
 {

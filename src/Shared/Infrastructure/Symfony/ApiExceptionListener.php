@@ -2,7 +2,6 @@
 
 namespace App\Shared\Infrastructure\Symfony;
 
-use App\ApiResponse;
 use DomainException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

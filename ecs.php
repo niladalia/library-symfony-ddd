@@ -1,5 +1,6 @@
 <?php
 use Symplify\EasyCodingStandard\Config\ECSConfig;
+use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
@@ -11,6 +12,7 @@ return ECSConfig::configure()
     ])
     ->withRules([
         ArraySyntaxFixer::class,
+        NoUnusedImportsFixer::class
     ])
     ->withSpacing(indentation: Option::INDENTATION_SPACES, lineEnding: PHP_EOL)
     ->withPhpCsFixerSets(perCS20: true, doctrineAnnotation: true)

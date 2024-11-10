@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Behat\Books;
 
-use App\Authors\Domain\Author;
 use App\Books\Domain\BookRepository;
 use App\Books\Domain\ValueObject\BookDescription;
 use App\Books\Domain\ValueObject\BookId;

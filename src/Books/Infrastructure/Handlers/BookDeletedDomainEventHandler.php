@@ -2,12 +2,9 @@
 
 namespace App\Books\Infrastructure\Handlers;
 
-use App\Authors\Application\Delete\DeleteAuthor;
 use App\Authors\Application\Delete\DeleteAuthorCommand;
-use App\Authors\Application\Find\AuthorFinder;
 use App\Authors\Application\Find\FindAuthorQuery;
 use App\Authors\Application\Find\FindAuthorResponse;
-use App\Authors\Domain\ValueObject\AuthorId;
 use App\Books\Domain\BookDeletedDomainEvent;
 use App\Shared\Domain\Bus\Command\CommandBus;
 use App\Shared\Domain\Bus\Query\QueryBus;
@@ -31,9 +28,8 @@ class BookDeletedDomainEventHandler
         }
         /** @var FindAuthorResponse $response */
         $response = $this->queryBus->ask(new FindAuthorQuery($authorId));
-        if(count($response->books()) == 0){
+        if (count($response->books()) == 0) {
             $this->commandBus->dispatch(new DeleteAuthorCommand($authorId));
         }
-
     }
 }

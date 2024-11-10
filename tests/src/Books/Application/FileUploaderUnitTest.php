@@ -9,7 +9,6 @@ use App\Books\Infrastructure\Uploader\LocalBookFileManager;
 use App\Tests\src\Books\BookUnitTest;
 use App\Tests\src\Books\Domain\BookMother;
 use App\Tests\src\Shared\Domain\UuidMother;
-use App\Tests\src\Shared\Infrastructure\PhpUnit\UnitTestCase;
 use League\Flysystem\FilesystemOperator;
 
 class FileUploaderUnitTest extends BookUnitTest
