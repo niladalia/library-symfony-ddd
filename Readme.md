@@ -38,7 +38,7 @@ Docker installed
  
         make run-migrations
 
-3. Now you can access http://localhost:83/api/doc to see and try all available api routes.
+3. Now you can access http://localhost:82/api/doc to see and try all available api routes.
 
 ###  Tests 
 
