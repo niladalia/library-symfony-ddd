@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Behat;
 
+use App\Shared\Domain\ValueObject\Uuid;
 use App\Tests\src\Shared\Infrastructure\Doctrine\MysqlTestDatabaseCleaner;
 use Behat\Gherkin\Node\PyStringNode;
 use Doctrine\ORM\EntityManagerInterface;
@@ -79,14 +80,19 @@ class ApiContext extends RawMinkContext
     }
 
     /**
-     * @Then the response should be empty
+     * @Then the response should contain a :idKey with valid UUID
      */
-    public function theResponseShouldBeEmpty(): void
+    public function theResponseShouldContainValidArrayWithId(string $idKey): void
     {
-        $actual = trim($this->response->getContent());
+        $response = $this->response->getContent();
+        $data = json_decode($response, true);
 
-        if (!empty($actual)) {
-            throw new RuntimeException(sprintf("The outputs is not empty, Actual:\n%s", $actual));
+        if (!array_key_exists($idKey, $data)) {
+            throw new \Exception(sprintf('Response does not contain the expected  field "%s".', $idKey));
+        }
+
+        if (!Uuid::isValid($data[$idKey])) {
+            throw new \Exception(sprintf('Response UUID is not valid'));
         }
     }
 

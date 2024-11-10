@@ -24,7 +24,7 @@ readonly class BookCreator
 
     public function __invoke(CreateBookRequest $bookRequest)
     {
-        $author = $bookRequest->author_id() ? ($this->authorFinder)(new AuthorId($bookRequest->author_id())) : null;
+        $author = $bookRequest->author_id() ? $this->authorFinder->__invoke(new AuthorId($bookRequest->author_id())) : null;
 
         $book = Book::create(
             new BookId($bookRequest->id()),

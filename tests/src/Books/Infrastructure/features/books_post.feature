@@ -13,4 +13,4 @@
     }
     """
     Then the response status code should be 201
-    And the response should be empty
+    And the response should contain a "book_id" with valid UUID

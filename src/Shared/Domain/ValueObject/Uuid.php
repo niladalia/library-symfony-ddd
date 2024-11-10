@@ -35,6 +35,11 @@ class Uuid implements Stringable
         return $this->getValue();
     }
 
+    public static function isValid(string $id): bool
+    {
+        return RamseyUuid::isValid($id);
+    }
+
     private function ensureIsValidUuid(string $id): void
     {
         if (!RamseyUuid::isValid($id)) {

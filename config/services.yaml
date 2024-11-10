@@ -28,7 +28,7 @@ services:
             tags: [ { name: messenger.message_handler, bus: messenger.query.bus } ]
 
 
-
+    App\Shared\Domain\Event\EventBus: '@App\Shared\Infrastructure\Event\RabbitMqEventBus'
     App\Books\Infrastructure\Handlers\BookCreatedDomainEventHandler:
         tags: [ { name: messenger.message_handler, fromTransport: 'librarify_book_created_subscriber' } ]
     App\Books\Infrastructure\Handlers\BookDeletedDomainEventHandler:
