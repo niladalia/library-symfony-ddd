@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Copy .env to .env.local
+        run: cp .env .env.local
+
+      - name: Start services with Docker Compose
+        run: docker compose up --build -d
+
+      - name: Composer install
+        run: make composer-install
+
+      - name: Run migrations
+        run: make run-migrations
+
+      - name: Prepare test database
+        run: make prepare-test-db
+
+      - name: Run tests
+        run: make run-tests
+
+      - name: Stop Docker Compose services
+        run: docker compose down

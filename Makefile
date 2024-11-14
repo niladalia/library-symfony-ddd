@@ -1,6 +1,7 @@
 build-project:
 	docker compose up --build -d
-	docker exec -it librarify_php composer install
+	make composer-install
+	make run-migrations
 	make prepare-test-db
 	#make build-consumers
 
@@ -13,8 +14,11 @@ stop:
 down:
 	docker compose down --rmi all
 
+composer-install:
+	docker exec -i librarify_php composer install
+
 run-migrations:
-	docker exec -it librarify_php php bin/console doctrine:migrations:migrate
+	docker exec -i librarify_php php bin/console doctrine:migrations:migrate
 
 prepare-test-db:
 	docker exec -i librarify_php php bin/console --env=test d:d:d  --force --if-exists
@@ -22,8 +26,8 @@ prepare-test-db:
 	docker exec -i librarify_php php bin/console --env=test d:s:c
 
 run-tests:
-	docker exec -it librarify_php ./vendor/bin/phpunit
-	docker exec -it librarify_php ./vendor/bin/behat
+	docker exec -i librarify_php ./vendor/bin/phpunit
+	docker exec -i librarify_php ./vendor/bin/behat
 
 ping-mysql:
 	@docker exec librarify_db mysqladmin --user=root --password=chopin --host "127.0.0.1" ping --silent
